@@ -38,12 +38,22 @@ class SampleModule(sp.BaseModule):
 
 		#create event to react inside SP events
 		self.registerEvent("Example Event", "exampleEvent")
+
+		#create a timer callback to run in cycle - in this example every 30s 
+		self.addTimer("checker", 30, self.checkfunction)
 		
+	# function to react on user change of parameters - it will call by change by user or remoted
+	def onParameterFeedback(self, parameter):
+		if parameter == self.stringPara:
+			print("string parameter changed"+ self.stringPara.value)
+
 	def onRunExampleAction(self, sMessage):
 		print(sMessage+ self.stringPara.value)
 		self.emitEvent("exampleEvent")
 
+	def checkfunction(self):
+		print("timer called")
+
+
 if __name__ == "__main__":
     sp.registerPlugin(SampleModule)
-    
-
