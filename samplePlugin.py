@@ -9,6 +9,7 @@ class SampleModule(sp.BaseModule):
 	#plugin info used 
 	pluginInfo = {
         "name" : "Sample Plugin",
+		"category" : "Plugins",
         "description" : "show how to create SP Plugin IO \r ",
         "author" : "SP",
         "version" : (1, 0),
@@ -58,5 +59,3 @@ class SampleModule(sp.BaseModule):
 
 if __name__ == "__main__":
     sp.registerPlugin(SampleModule)
-    
-
