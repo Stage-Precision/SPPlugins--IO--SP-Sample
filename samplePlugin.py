@@ -8,14 +8,14 @@ class SampleModule(sp.BaseModule):
 
 	#plugin info used 
 	pluginInfo = {
-        "name" : "Sample Plugin",
+		"name" : "Sample Plugin",
 		"category" : "Plugins",
-        "description" : "show how to create SP Plugin IO \r ",
-        "author" : "SP",
-        "version" : (1, 0),
-        "spVersion" : (1, 0, 142),
+		"description" : "show how to create SP Plugin IO \r ",
+		"author" : "SP",
+		"version" : (1, 0),
+		"spVersion" : (1, 0, 142),
 		"helpPath" : os.path.join(os.path.dirname(os.path.abspath(__file__)),"help.md")
-    }
+	}
 
 	def __init__(self):
 		sp.BaseModule.__init__(self)
@@ -31,8 +31,11 @@ class SampleModule(sp.BaseModule):
 
 		#create own stackable containers 
 		subContainer = self.addContainer("Setting")
-		self.stringpara = subContainer.addStringParameter("Eample", "sring")
-
+		self.stringpara = subContainer.addStringParameter("Eample", "string")
+		#create a dropdown parameter
+		self.enumpara = subContainer.addEnumParameter("Dropdown", 0, "Option 1;Option 2;Option 3;Option 4")
+		self.enumpara.addOption("dynamic Option 5", 4)
+		
 		#create actions with definable parameters
 		# (nicename, folder, function)
 		action = self.addAction("Run Example Action", "", self.onRunExampleAction)
@@ -58,4 +61,4 @@ class SampleModule(sp.BaseModule):
 
 
 if __name__ == "__main__":
-    sp.registerPlugin(SampleModule)
+	sp.registerPlugin(SampleModule)
