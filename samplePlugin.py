@@ -8,13 +8,14 @@ class SampleModule(sp.BaseModule):
 
 	#plugin info used 
 	pluginInfo = {
-        "name" : "Sample Plugin",
-        "description" : "show how to create SP Plugin IO \r ",
-        "author" : "SP",
-        "version" : (1, 0),
-        "spVersion" : (1, 0, 142),
+		"name" : "Sample Plugin",
+		"category" : "Plugins",
+		"description" : "show how to create SP Plugin IO \r ",
+		"author" : "SP",
+		"version" : (1, 0),
+		"spVersion" : (1, 0, 142),
 		"helpPath" : os.path.join(os.path.dirname(os.path.abspath(__file__)),"help.md")
-    }
+	}
 
 	def __init__(self):
 		sp.BaseModule.__init__(self)
@@ -30,11 +31,19 @@ class SampleModule(sp.BaseModule):
 
 		#create own stackable containers 
 		subContainer = self.addContainer("Setting")
-		self.stringpara = subContainer.addStringParameter("Eample", "sring")
-
-		#create actions with definable parameters 
-		action = self.addAction("Run Example Action", "sendExample", self.onRunExampleAction)
+		self.stringpara = subContainer.addStringParameter("Eample", "string")
+		#create a dropdown parameter
+		self.enumpara = subContainer.addEnumParameter("Dropdown", 0, "Option 1;Option 2;Option 3;Option 4")
+		self.enumpara.addOption("dynamic Option 5", 4)
+		
+		#create actions with definable parameters
+		# (nicename, folder, function)
+		action = self.addAction("Run Example Action", "", self.onRunExampleAction)
 		action.addStringParameter("Message", "mes")
+		
+		#action withe return values - with names for Action Tokens
+		actionR = self.addAction("Get Var from Action", "", self.onRunExampleReturnAction)
+		actionR.addScriptTokens(["temperature", "humidity"])
 
 		#create event to react inside SP events
 		self.registerEvent("Example Event", "exampleEvent")
@@ -47,13 +56,16 @@ class SampleModule(sp.BaseModule):
 		if parameter == self.stringPara:
 			print("string parameter changed"+ self.stringPara.value)
 
-	def onRunExampleAction(self, sMessage):
+	def onRunExampleAction(self):
 		print(sMessage+ self.stringPara.value)
 		self.emitEvent("exampleEvent")
+		
+	def onRunExampleReturnAction(self):
+		return {"temperature": 29.5, "humidity": 50.5}
 
 	def checkfunction(self):
 		print("timer called")
 
 
 if __name__ == "__main__":
-    sp.registerPlugin(SampleModule)
+	sp.registerPlugin(SampleModule)
