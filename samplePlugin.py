@@ -75,9 +75,10 @@ class SampleModule(sp.BaseModule):
 		print(f"Float: {float}")
 		print(f"Int: {int}")
 		print(f"Bool: {bool}")
-		print(f"Enum: {enum}")
+		print(f"Enum Index: {enum}")
 		print(f"Point: {point}")
 		print(f"Vector: {vector}")
+		print(f"self.enumpara.value: {self.enumpara.value}")
 		#print(f"Data Target: {dataTarget[0]}")
 		self.emitEvent("exampleEvent")
 		
