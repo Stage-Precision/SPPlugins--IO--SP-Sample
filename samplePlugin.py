@@ -29,9 +29,13 @@ class SampleModule(sp.BaseModule):
 		self.intPara = self.moduleContainer.addIntParameter("Example Int", 587, 1, 65535)
 		self.floatPara = self.moduleContainer.addFloatParameter("Example Float", 0, 0, 100)
 
+
 		#create own stackable containers 
 		subContainer = self.addContainer("Setting")
 		self.stringpara = subContainer.addStringParameter("Example", "string")
+		self.ippara = subContainer.addIPParameter("Example IP", False)
+		self.datatargetpara = subContainer.addDataTargetParameter("Example Data Target", "", "")
+
 		#create a dropdown parameter
 		self.enumpara = subContainer.addEnumParameter("Dropdown", 0, "Option 1;Option 2;Option 3;Option 4")
 		self.enumpara.addOption("dynamic Option 5", 4)
@@ -40,6 +44,16 @@ class SampleModule(sp.BaseModule):
 		# (nickname, folder, function)
 		action = self.addAction("Run Example Action", "", self.onRunExampleAction)
 		action.addStringParameter("Message", "mes")
+		action.addFloatParameter("Float", 0, 0, 100)
+		action.addIntParameter("Int", 0, 0, 100)
+		action.addBoolParameter("Bool", False)
+		action.addEnumParameter("Enum", 0, "A 1;B 2;C 3")
+		action.addPointParameter("Point", 0, 0, -100, 100, -100, 100)
+		action.addVectorParameter("Vector", 0, 0, 0, -100, 100, -100, 100, -100, 100)
+		#action.addIPParameter("IP", False)
+		#action.addColorParameter("Color", 0, 0, 0, 255)
+		#action.addDataParameter("Data")
+		action.addDataTargetParameter("Data Target", "", "")
 		
 		#action withe return values - with names for Action Tokens
 		actionR = self.addAction("Get Var from Action", "", self.onRunExampleReturnAction)
