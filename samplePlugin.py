@@ -43,7 +43,7 @@ class SampleModule(sp.BaseModule):
 		#create actions with definable parameters
 		# (nickname, folder, function)
 		action = self.addAction("Run Example Action", "", self.onRunExampleAction)
-		action.addStringParameter("Message", "mes")
+		action.addStringParameter("Message", "msg")
 		action.addFloatParameter("Float", 0, 0, 100)
 		action.addIntParameter("Int", 0, 0, 100)
 		action.addBoolParameter("Bool", False)
@@ -53,7 +53,7 @@ class SampleModule(sp.BaseModule):
 		#action.addIPParameter("IP", False)
 		#action.addColorParameter("Color", 0, 0, 0, 255)
 		#action.addDataParameter("Data")
-		action.addDataTargetParameter("Data Target", "", "")
+		#action.addDataTargetParameter("Data Target", "", "")
 		
 		#action withe return values - with names for Action Tokens
 		actionR = self.addAction("Get Var from Action", "", self.onRunExampleReturnAction)
@@ -70,8 +70,15 @@ class SampleModule(sp.BaseModule):
 		if parameter == self.stringPara:
 			print("string parameter changed"+ self.stringPara.value)
 
-	def onRunExampleAction(self):
-		print(sMessage+ self.stringPara.value)
+	def onRunExampleAction(self, msg, float, int, bool, enum, point, vector):
+		print(f"String Message: {msg}")
+		print(f"Float: {float}")
+		print(f"Int: {int}")
+		print(f"Bool: {bool}")
+		print(f"Enum: {enum}")
+		print(f"Point: {point}")
+		print(f"Vector: {vector}")
+		#print(f"Data Target: {dataTarget[0]}")
 		self.emitEvent("exampleEvent")
 		
 	def onRunExampleReturnAction(self):
