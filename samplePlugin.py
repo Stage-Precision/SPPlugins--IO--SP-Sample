@@ -26,18 +26,18 @@ class SampleModule(sp.BaseModule):
 
 		#inside module Container
 		self.stringPara = self.moduleContainer.addStringParameter("Example String", "string")
-		self.intPara = self.moduleContainer.addIntParameter("Exampel Int", 587, 1, 65535)
+		self.intPara = self.moduleContainer.addIntParameter("Example Int", 587, 1, 65535)
 		self.floatPara = self.moduleContainer.addFloatParameter("Example Float", 0, 0, 100)
 
 		#create own stackable containers 
 		subContainer = self.addContainer("Setting")
-		self.stringpara = subContainer.addStringParameter("Eample", "string")
+		self.stringpara = subContainer.addStringParameter("Example", "string")
 		#create a dropdown parameter
 		self.enumpara = subContainer.addEnumParameter("Dropdown", 0, "Option 1;Option 2;Option 3;Option 4")
 		self.enumpara.addOption("dynamic Option 5", 4)
 		
 		#create actions with definable parameters
-		# (nicename, folder, function)
+		# (nickname, folder, function)
 		action = self.addAction("Run Example Action", "", self.onRunExampleAction)
 		action.addStringParameter("Message", "mes")
 		
