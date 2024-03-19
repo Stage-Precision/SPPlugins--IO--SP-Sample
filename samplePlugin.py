@@ -39,6 +39,9 @@ class SampleModule(sp.BaseModule):
 		#create a dropdown parameter
 		self.enumpara = subContainer.addEnumParameter("Dropdown", 0, "Option 1;Option 2;Option 3;Option 4")
 		self.enumpara.addOption("dynamic Option 5", 4)
+
+		#create a trigger action within the IO Setting container
+		self.trigger = subContainer.addTrigger("Trigger Button")
 		
 		#create actions with definable parameters
 		# (nickname, folder, function)
@@ -69,6 +72,8 @@ class SampleModule(sp.BaseModule):
 	def onParameterFeedback(self, parameter):
 		if parameter == self.stringPara:
 			print("string parameter changed"+ self.stringPara.value)
+		if parameter == self.trigger:
+			print("trigger button has been pressed within the IO")
 
 	def onRunExampleAction(self, msg, float, int, bool, enum, point, vector):
 		print(f"String Message: {msg}")
