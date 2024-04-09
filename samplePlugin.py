@@ -1,6 +1,6 @@
 import sp
 import os
-
+import threading
 
 #Sample SP IO Structure
 
@@ -67,6 +67,10 @@ class SampleModule(sp.BaseModule):
 
 		#create a timer callback to run in cycle - in this example every 30s 
 		self.addTimer("checker", 30, self.checkfunction)
+
+		self.stopThread = threading.Event()
+		self.thread = threading.Thread(target=self.run)
+		self.thread.start()
 		
 	# function to react on user change of parameters - it will call by change by user or remoted
 	def onParameterFeedback(self, parameter):
@@ -74,6 +78,15 @@ class SampleModule(sp.BaseModule):
 			print("string parameter changed"+ self.stringPara.value)
 		if parameter == self.trigger:
 			print("trigger button has been pressed within the IO")
+
+	def shutdown(self):
+		self.stopThread.set()
+		self.thread.join()
+	
+	def run(self):
+		while not self.stopThread.is_set():
+			print(time.time())
+			time.sleep(1)
 
 	def onRunExampleAction(self, callback, msg, float, int, bool, enum, point, vector):
 		print(f"String Message: {msg}")
@@ -94,6 +107,8 @@ class SampleModule(sp.BaseModule):
 
 	def checkfunction(self):
 		print("timer called")
+
+	
 
 
 if __name__ == "__main__":
