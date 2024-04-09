@@ -75,7 +75,7 @@ class SampleModule(sp.BaseModule):
 		if parameter == self.trigger:
 			print("trigger button has been pressed within the IO")
 
-	def onRunExampleAction(self, msg, float, int, bool, enum, point, vector):
+	def onRunExampleAction(self, callback, msg, float, int, bool, enum, point, vector):
 		print(f"String Message: {msg}")
 		print(f"Float: {float}")
 		print(f"Int: {int}")
@@ -85,6 +85,8 @@ class SampleModule(sp.BaseModule):
 		print(f"Vector: {vector}")
 		print(f"self.enumpara.value: {self.enumpara.value}")
 		#print(f"Data Target: {dataTarget[0]}")
+		callback(True)
+		#Register an event in SP for other elements to be notified
 		self.emitEvent("exampleEvent")
 		
 	def onRunExampleReturnAction(self):
